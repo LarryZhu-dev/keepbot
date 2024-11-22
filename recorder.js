@@ -1,4 +1,5 @@
 import fs from 'fs'
+// 记录发言榜
 const cacheTalkers = fs.readFileSync('./talkers.json')
 
 const talkers = JSON.parse(cacheTalkers)

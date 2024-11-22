@@ -1,5 +1,5 @@
 import { WechatyBuilder } from 'wechaty'
-import { onMessage, roomJoin, roomLeave } from './bot.js'
+import { onMessage, roomJoin } from './bot.js'
 import fs from 'fs'
 
 const botName = '不朽堡垒守卫'
@@ -9,11 +9,11 @@ wechaty
   .on('login', (user) => console.log(`User ${user} logged in`))
   .on('message', onMessage)
   .on('room-join', roomJoin)
-  .on('room-leave', roomLeave)
-  .on('ready', () => {
-    // pollRoomMembers('Auto Plugin')
-  })
-wechaty.start()
+
+wechaty.start().catch((e) => {
+  console.log('start error:', e)
+})
+// 以下是轮询房间成员的代码，但是目前我看没什么屌用，wechaty获取到的成员不会变，不知道怎么回事，可以在 .on("ready") 中调用 pollRoomMembers 测试
 const getRoom = async (roomName) => {
   const room = await wechaty.Room.find({ topic: roomName })
   if (room) {
